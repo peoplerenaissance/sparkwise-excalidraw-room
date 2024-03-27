@@ -2,6 +2,7 @@ import debug from "debug";
 import express from "express";
 import http from "http";
 import { Server as SocketIO } from "socket.io";
+import * as Sentry from "@sentry/node";
 
 type UserToFollow = {
   socketId: string;
@@ -25,6 +26,16 @@ require("dotenv").config(
 const app = express();
 const port =
   process.env.PORT || (process.env.NODE_ENV !== "development" ? 80 : 3002); // default port to listen
+
+Sentry.init({
+  dsn:
+    "https://45e3e36cdc39930618f50a61c1e724cc@o1112051.ingest.us.sentry.io/4506979774758912",
+  integrations: [
+    // enable HTTP calls tracing
+    new Sentry.Integrations.Http({ tracing: true }),
+  ],
+});
+app.use(Sentry.Handlers.requestHandler() as express.RequestHandler);
 
 app.use(express.static("public"));
 
@@ -149,5 +160,5 @@ try {
     });
   });
 } catch (error) {
-  console.error(error);
+  Sentry.captureException(error);
 }
