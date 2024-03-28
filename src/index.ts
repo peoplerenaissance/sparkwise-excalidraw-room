@@ -30,10 +30,7 @@ const port =
 Sentry.init({
   dsn:
     "https://45e3e36cdc39930618f50a61c1e724cc@o1112051.ingest.us.sentry.io/4506979774758912",
-  integrations: [
-    // enable HTTP calls tracing
-    new Sentry.Integrations.Http({ tracing: true }),
-  ],
+  integrations: [],
 });
 app.use(Sentry.Handlers.requestHandler() as express.RequestHandler);
 
