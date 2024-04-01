@@ -1,5 +1,8 @@
 FROM node:12-alpine
 
+RUN apk update && apk upgrade
+RUN npm install -g npm@latest
+
 WORKDIR /excalidraw-room
 
 COPY package.json yarn.lock ./
