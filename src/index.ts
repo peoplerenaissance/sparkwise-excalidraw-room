@@ -28,8 +28,7 @@ const port =
   process.env.PORT || (process.env.NODE_ENV !== "development" ? 80 : 3002); // default port to listen
 
 Sentry.init({
-  dsn:
-    "https://45e3e36cdc39930618f50a61c1e724cc@o1112051.ingest.us.sentry.io/4506979774758912",
+  dsn: "https://45e3e36cdc39930618f50a61c1e724cc@o1112051.ingest.us.sentry.io/4506979774758912",
   integrations: [],
 });
 app.use(Sentry.Handlers.requestHandler() as express.RequestHandler);
