@@ -1,4 +1,4 @@
-FROM node:18.20.2-alpine
+FROM node:22.3-alpine
 
 RUN apk update && apk upgrade
 RUN npm install -g npm@latest
