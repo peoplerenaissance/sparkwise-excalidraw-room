@@ -37,7 +37,7 @@
   },
   "resolutions": {
     "ws": "8.17.1",
-    "micromatch" : "4.0.8"
+    "micromatch": "4.0.8"
   },
   "version": "1.0.0"
 }
