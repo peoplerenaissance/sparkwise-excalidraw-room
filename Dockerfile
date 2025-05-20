@@ -1,4 +1,4 @@
-FROM node:22.15.1-alpine
+FROM public.ecr.aws/docker/library/node:22.15-alpine
 
 RUN apk update && apk upgrade
 RUN npm install -g npm@latest
