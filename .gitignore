@@ -106,4 +106,5 @@ dist
 
 .DS_Store
 .vscode/settings.json
+settings.local.json
 dist
