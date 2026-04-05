@@ -1,7 +1,6 @@
 FROM public.ecr.aws/docker/library/node:22-alpine
 
 RUN apk update && apk upgrade
-RUN npm install -g npm@latest
 
 WORKDIR /excalidraw-room
 
