@@ -28,6 +28,6 @@ COPY --from=builder /excalidraw-room/dist ./dist
 
 USER app
 
-EXPOSE 80
+EXPOSE 3002
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["node", "dist/index.js"]

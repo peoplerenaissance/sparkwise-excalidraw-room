@@ -24,8 +24,7 @@ require("dotenv").config(
 );
 
 const app = express();
-const port =
-  process.env.PORT || (process.env.NODE_ENV !== "development" ? 80 : 3002); // default port to listen
+const port = process.env.PORT || 3002;
 
 Sentry.init({
   dsn: "https://45e3e36cdc39930618f50a61c1e724cc@o1112051.ingest.us.sentry.io/4506979774758912",
