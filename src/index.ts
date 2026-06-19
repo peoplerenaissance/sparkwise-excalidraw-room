@@ -13,7 +13,6 @@ type OnUserFollowedPayload = {
   action: "FOLLOW" | "UNFOLLOW";
 };
 
-const serverDebug = debug("server");
 const ioDebug = debug("io");
 const socketDebug = debug("socket");
 
@@ -41,8 +40,30 @@ app.get("/", (req, res) => {
 const server = http.createServer(app);
 
 server.listen(port, () => {
-  serverDebug(`listening on port: ${port}`);
+  console.info(`listening on port: ${port}`);
 });
+
+// Node runs as PID 1 in the distroless container and receives SIGTERM directly
+// (e.g. `docker stop`, ECS task draining). PID 1 ignores signals that have no
+// handler, so without this the platform escalates to SIGKILL. Registered at
+// module scope so a failure constructing Socket.IO below can't leave the
+// process without a shutdown handler.
+let activeIo: SocketIO | undefined;
+const shutdown = (signal: string) => {
+  console.info(`received ${signal}, shutting down`);
+  const done = () => process.exit(0);
+  // io.close() severs client connections and closes the underlying HTTP server,
+  // invoking the callback once it has stopped accepting requests.
+  if (activeIo) {
+    activeIo.close(done);
+  } else {
+    server.close(done);
+  }
+  // Safety net: force-exit if that callback never fires.
+  setTimeout(done, 10000).unref();
+};
+process.on("SIGTERM", () => shutdown("SIGTERM"));
+process.on("SIGINT", () => shutdown("SIGINT"));
 
 try {
   const io = new SocketIO(server, {
@@ -54,6 +75,7 @@ try {
     },
     allowEIO3: true,
   });
+  activeIo = io;
 
   io.on("connection", (socket) => {
     ioDebug("connection established!");
