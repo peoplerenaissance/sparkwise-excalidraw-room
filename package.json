@@ -3,7 +3,7 @@
     "@sentry/node": "^7.119.0",
     "debug": "4.3.6",
     "dotenv": "^10.0.0",
-    "express": "4.22.1",
+    "express": "4.22.3",
     "socket.io": "4.8.3"
   },
   "devDependencies": {
@@ -41,7 +41,7 @@
     "ws": "8.21.0",
     "micromatch": "4.0.8",
     "cross-spawn": "7.0.6",
-    "qs": "6.14.2",
+    "qs": "6.16.1",
     "eslint/**/minimatch": "3.1.5",
     "ts-node-dev/**/minimatch": "3.1.5",
     "typescript-eslint/**/minimatch": "9.0.9",
